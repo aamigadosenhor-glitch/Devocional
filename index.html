@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Devocional diário que troca automaticamente, sem conta e sem coleta de dados." />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
+  <title>Devocional 365</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="header">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"><img src="assets/icon.svg" alt="" /></div>
+        <div class="titlebox">
+          <h1>Devocional 365</h1>
+          <p id="status">Carregando...</p>
+        </div>
+      </div>
+      <div class="controls">
+        <button id="btnShare" title="Compartilhar ou copiar">Compartilhar</button>
+        <button id="btnOffline" title="Ativar modo offline">Offline</button>
+        <button id="btnToday" title="Voltar para hoje">Hoje</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="topline">
+          <div>
+            <div class="h2" id="todayDate">...</div>
+            <div class="small" id="countdown">...</div>
+          </div>
+          <div class="badge" id="badgeDay">Dia ...</div>
+        </div>
+
+        <div class="notice" id="leapNote" style="display:none">
+          <div class="dot"></div>
+          <div class="small">
+            Hoje é 29 de fevereiro. Para manter 365 mensagens, este dia usa o mesmo devocional do ciclo de 365.
+          </div>
+        </div>
+
+        <hr />
+
+        <div class="kv">
+          <div>
+            <div class="k">Título</div>
+            <div class="v" id="title">...</div>
+          </div>
+
+          <div>
+            <div class="k">Leitura</div>
+            <div class="v" id="reading">...</div>
+          </div>
+
+          <div>
+            <div class="k">Mensagem</div>
+            <div class="v" id="message">...</div>
+          </div>
+
+          <div>
+            <div class="k">Oração</div>
+            <div class="v" id="prayer">...</div>
+          </div>
+
+          <div>
+            <div class="k">Prática do dia</div>
+            <div class="v" id="practice">...</div>
+          </div>
+        </div>
+
+        <div class="footer">
+          Este site é 100% estático, sem login e sem coleta de dados. A mensagem do dia é escolhida pelo calendário do seu aparelho e troca à meia noite do seu horário local.
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="h2">Como publicar grátis</div>
+        <div class="footer">
+          Opção 1, GitHub Pages. Crie um repositório público, envie estes arquivos, ative Pages em Settings, Pages, Branch main, root.
+          <br/><br/>
+          Opção 2, Cloudflare Pages. Conecte seu GitHub, escolha o repositório, e publique com build vazio, porque é site estático.
+          <br/><br/>
+          Dica, você pode editar os 365 textos no arquivo data/devocionais.json.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
