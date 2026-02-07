@@ -51,16 +51,16 @@ a{color:inherit}
   gap:12px;
 }
 .logo{
-  width:220px;
-  height:54px;
-  border-radius:16px;
+  width:38px;
+  height:38px;
+  border-radius:12px;
   background:var(--card);
   display:grid;
   place-items:center;
   border:1px solid var(--border);
   box-shadow:0 12px 24px var(--shadow);
 }
-.logo img{width:100%;height:100%;object-fit:contain}
+.logo img{width:22px;height:22px}
 .titlebox h1{
   font-size:18px;
   margin:0;
@@ -172,63 +172,31 @@ hr{
 .linkbtn{border:1px solid var(--border);background:var(--card);color:var(--text);padding:10px 12px;border-radius:14px;cursor:pointer;box-shadow:0 10px 22px var(--shadow);text-decoration:none;display:inline-flex;align-items:center}
 
 .linkbtn:active{transform:translateY(1px)}
-/* v7: header estável, logo sem caixa gigante */
-.header{
-  display:grid;
-  grid-template-columns: 1fr auto;
-  gap:16px;
-  align-items:center;
-}
-
-.brand{
-  display:flex;
-  gap:14px;
-  align-items:center;
-  min-width:0;
-}
-
+/* v8: logo alinhada, sem caixa, header consistente */
+.brand{align-items:center}
 .logo{
   width:auto;
   height:auto;
-  padding:0;
   background:transparent;
   border:none;
   box-shadow:none;
+  padding:0;
   border-radius:0;
   display:flex;
   align-items:center;
-  justify-content:center;
+  justify-content:flex-start;
 }
-
 .logo img{
-  display:block;
   width:auto;
   height:auto;
   max-width:200px;
   max-height:54px;
   object-fit:contain;
-  object-position:center;
+  object-position:left center;
+  display:block;
 }
-
-.controls{
-  justify-content:flex-end;
-  flex-wrap:wrap;
-}
-
+.controls{gap:12px}
 @media (max-width: 560px){
-  .header{
-    grid-template-columns: 1fr;
-    gap:12px;
-    align-items:flex-start;
-  }
-  .controls{
-    justify-content:flex-start;
-  }
-  .logo img{
-    max-width:170px;
-    max-height:46px;
-  }
-  .titlebox p{
-    max-width:26ch;
-  }
+  .header{justify-content:flex-start}
+  .logo img{max-width:170px;max-height:48px}
 }

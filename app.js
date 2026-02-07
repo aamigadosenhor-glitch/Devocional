@@ -1,3 +1,23 @@
+
+async function hardResetSite(){
+  try{
+    if("serviceWorker" in navigator){
+      const regs = await navigator.serviceWorker.getRegistrations();
+      await Promise.all(regs.map((r) => r.unregister()));
+    }
+  }catch(e){}
+
+  try{
+    if("caches" in window){
+      const keys = await caches.keys();
+      await Promise.all(keys.map((k) => caches.delete(k)));
+    }
+  }catch(e){}
+
+  const base = window.location.href.split("?")[0].split("#")[0];
+  window.location.replace(base + "?v=" + Date.now());
+}
+
 const $ = (sel) => document.querySelector(sel);
 
 const APP_VERSION = "v4";
@@ -291,29 +311,3 @@ async function main(){
 }
 
 main();
-
-async function hardResetSite(reg){
-  try{
-    if(reg && reg.waiting){
-      reg.waiting.postMessage({ type: "SKIP_WAITING" });
-    }
-  }catch(e){}
-
-  try{
-    if("serviceWorker" in navigator){
-      const regs = await navigator.serviceWorker.getRegistrations();
-      await Promise.all(regs.map((r) => r.unregister()));
-    }
-  }catch(e){}
-
-  try{
-    if("caches" in window){
-      const keys = await caches.keys();
-      await Promise.all(keys.map((k) => caches.delete(k)));
-    }
-  }catch(e){}
-
-  const base = window.location.href.split("?")[0].split("#")[0];
-  window.location.replace(base + "?v=" + Date.now());
-}
-

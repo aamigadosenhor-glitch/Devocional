@@ -1,4 +1,4 @@
-const CACHE = "amiga_do_senhor_v7";
+const CACHE = "amiga_do_senhor_v8";
 const ASSETS = [
   "./",
   "./index.html",
