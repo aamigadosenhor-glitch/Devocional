@@ -26,3 +26,6 @@ Playlist: https://open.spotify.com/playlist/ID ou spotify:playlist:ID
 
 Observação
 O player do Spotify pode exigir login para tocar a música inteira, isso depende das regras do Spotify e do dispositivo.
+
+Spotify e prévia
+O player embed do Spotify pode tocar apenas uma prévia no navegador. Para ouvir completa, use o botão Ouvir no Spotify, ele abre a faixa ou playlist no app ou no site do Spotify.

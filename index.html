@@ -5,17 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Devocional diário que troca automaticamente, sem conta e sem coleta de dados." />
   <link rel="manifest" href="manifest.json" />
-  <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
-  <title>Devocional 365</title>
+  <link rel="icon" href="assets/icon-192.png" type="image/png" />
+  <title>Amiga do Senhor</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="wrap">
     <div class="header">
       <div class="brand">
-        <div class="logo" aria-hidden="true"><img src="assets/icon.svg" alt="" /></div>
+        <div class="logo" aria-hidden="true"><img src="assets/logo.png" alt="Amiga do Senhor" /></div>
         <div class="titlebox">
-          <h1>Devocional 365</h1>
+          <h1>Amiga do Senhor</h1>
           <p id="status">Carregando...</p>
         </div>
       </div>
@@ -79,7 +79,10 @@
       <div class="card" id="musicCard" style="display:none">
         <div class="topline">
           <div class="h2">Música do dia</div>
-          <div class="badge" id="musicBadge">Spotify</div>
+          <div class="miniControls">
+            <div class="badge" id="musicBadge">Spotify</div>
+            <a id="musicOpen" class="linkbtn" href="#" target="_blank" rel="noopener">Ouvir no Spotify</a>
+          </div>
         </div>
         <div class="small" id="musicHint" style="margin-bottom:12px"></div>
         <div id="musicEmbed"></div>

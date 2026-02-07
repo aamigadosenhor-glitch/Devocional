@@ -104,6 +104,7 @@ function showMusicCard(){
 function hideMusicCard(){
   const card = $("#musicCard");
   if(card) card.style.display = "none";
+  setMusicOpenLink(null);
 }
 
 function renderSpotifyEmbed(type, id, meta){
@@ -119,7 +120,8 @@ function renderSpotifyEmbed(type, id, meta){
     hint.textContent = "Uma música selecionada para acompanhar a leitura de hoje.";
     const src = `https://open.spotify.com/embed/track/${id}?utm_source=generator`;
     embed.innerHTML = `<iframe style="border-radius:16px" src="${src}" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
-    footer.textContent = "O player do Spotify pode pedir login para tocar a música inteira, isso depende das regras do Spotify e do dispositivo.";
+  setMusicOpenLink(`https://open.spotify.com/track/${id}`);
+    footer.textContent = "O player aqui pode tocar só prévia. Para ouvir completa, use o botão Ouvir no Spotify.";
     return;
   }
 
@@ -127,7 +129,8 @@ function renderSpotifyEmbed(type, id, meta){
     hint.textContent = "Uma playlist para acompanhar o devocional.";
     const src = `https://open.spotify.com/embed/playlist/${id}?utm_source=generator`;
     embed.innerHTML = `<iframe style="border-radius:16px" src="${src}" width="100%" height="352" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
-    footer.textContent = "Se o player não aparecer, teste sem bloqueador de anúncios ou em janela anônima.";
+  setMusicOpenLink(`https://open.spotify.com/playlist/${id}`);
+    footer.textContent = "Se o player não aparecer, teste sem bloqueador de anúncios ou em janela anônima. Para ouvir completa, use o botão Ouvir no Spotify.";
     return;
   }
 }
