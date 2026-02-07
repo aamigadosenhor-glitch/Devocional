@@ -51,8 +51,8 @@ a{color:inherit}
   gap:12px;
 }
 .logo{
-  width:200px;
-  height:50px;
+  width:220px;
+  height:54px;
   border-radius:16px;
   background:var(--card);
   display:grid;
@@ -172,37 +172,63 @@ hr{
 .linkbtn{border:1px solid var(--border);background:var(--card);color:var(--text);padding:10px 12px;border-radius:14px;cursor:pointer;box-shadow:0 10px 22px var(--shadow);text-decoration:none;display:inline-flex;align-items:center}
 
 .linkbtn:active{transform:translateY(1px)}
-@media (max-width: 560px){
-  .header{
-    flex-direction:column;
-    align-items:stretch;
-    gap:12px;
-  }
-  .brand{
-    width:100%;
-  }
-  .controls{
-    width:100%;
-    justify-content:flex-start;
-    flex-wrap:wrap;
-  }
-  .logo{
-    width:180px;
-    height:46px;
-  }
-  .titlebox h1{
-    font-size:17px;
-  }
+/* v7: header estável, logo sem caixa gigante */
+.header{
+  display:grid;
+  grid-template-columns: 1fr auto;
+  gap:16px;
+  align-items:center;
 }
-/* Ajustes de header e logo */
-.header{align-items:center}
-.brand{align-items:center}
-.logo{display:flex;align-items:center;justify-content:center;overflow:hidden}
-.logo img{width:100%;height:100%;object-fit:contain;object-position:center}
+
+.brand{
+  display:flex;
+  gap:14px;
+  align-items:center;
+  min-width:0;
+}
+
+.logo{
+  width:auto;
+  height:auto;
+  padding:0;
+  background:transparent;
+  border:none;
+  box-shadow:none;
+  border-radius:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.logo img{
+  display:block;
+  width:auto;
+  height:auto;
+  max-width:200px;
+  max-height:54px;
+  object-fit:contain;
+  object-position:center;
+}
+
+.controls{
+  justify-content:flex-end;
+  flex-wrap:wrap;
+}
 
 @media (max-width: 560px){
-  .logo{width:190px;height:48px}
-  .titlebox{min-width:0}
-  .titlebox p{max-width:22ch}
-  .controls{gap:10px}
+  .header{
+    grid-template-columns: 1fr;
+    gap:12px;
+    align-items:flex-start;
+  }
+  .controls{
+    justify-content:flex-start;
+  }
+  .logo img{
+    max-width:170px;
+    max-height:46px;
+  }
+  .titlebox p{
+    max-width:26ch;
+  }
 }

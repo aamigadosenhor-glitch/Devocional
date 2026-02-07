@@ -1,4 +1,4 @@
-const CACHE = "devocional365_v4";
+const CACHE = "amiga_do_senhor_v7";
 const ASSETS = [
   "./",
   "./index.html",
