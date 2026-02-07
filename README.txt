@@ -1,23 +1,28 @@
 Devocional 365 (site estático)
 
 O que é
-Um devocional diário que troca automaticamente a cada 24 horas, sem conta e sem envio de dados.
+Um devocional diário que troca automaticamente, sem conta e sem envio de dados.
 A mensagem do dia é escolhida pelo dia do ano, por exemplo 2 de fevereiro corresponde ao dia 33.
 
-Arquivos principais
-index.html, página principal
-styles.css, estilos
-app.js, lógica do dia do ano
-data/devocionais.json, os 365 devocionais
-sw.js, modo offline
-manifest.json, instalação como aplicativo
+Botões
+Compartilhar: abre o compartilhamento do aparelho, ou copia o texto.
+Atualizar: limpa cache e recarrega, útil quando você altera textos e quer forçar a versão nova.
 
-Como hospedar grátis no GitHub Pages
-1) Crie um repositório público no GitHub
-2) Envie todos os arquivos desta pasta para a raiz do repositório
-3) Vá em Settings, Pages
-4) Em Build and deployment, escolha Branch main e pasta root
-5) Salve e abra o link gerado
+Arquivos principais
+index.html
+styles.css
+app.js
+data/devocionais.json
+data/musicas.json, opcional
+sw.js
+manifest.json
 
 Como editar os textos
-Abra data/devocionais.json e altere os campos title, reading, message, prayer, practice.
+Abra data/devocionais.json e altere title, reading, message, prayer, practice.
+
+Música do dia no Spotify
+Abra data/musicas.json
+1) Troque enabled para true
+2) Preencha tracks com 365 itens, um por dia
+Aceita link do Spotify ou spotify:track:ID
+Observação: o player do Spotify pode exigir login para tocar a faixa inteira.

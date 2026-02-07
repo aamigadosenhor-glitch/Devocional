@@ -1,4 +1,4 @@
-const CACHE = "devocional365_v1";
+const CACHE = "devocional365_v3";
 const ASSETS = [
   "./",
   "./index.html",
@@ -6,7 +6,8 @@ const ASSETS = [
   "./app.js",
   "./manifest.json",
   "./assets/icon.svg",
-  "./data/devocionais.json"
+  "./data/devocionais.json",
+  "./data/musicas.json"
 ];
 
 self.addEventListener("install", (event) => {
@@ -22,8 +23,38 @@ self.addEventListener("activate", (event) => {
   );
 });
 
+self.addEventListener("message", (event) => {
+  if(event.data && event.data.type === "SKIP_WAITING"){
+    self.skipWaiting();
+  }
+});
+
 self.addEventListener("fetch", (event) => {
+  const url = new URL(event.request.url);
+
+  if(url.pathname.endsWith("/data/devocionais.json") || url.pathname.endsWith("/data/musicas.json")){
+    event.respondWith(
+      fetch(event.request)
+        .then((res) => {
+          const copy = res.clone();
+          caches.open(CACHE).then((cache) => cache.put(event.request, copy));
+          return res;
+        })
+        .catch(() => caches.match(event.request))
+    );
+    return;
+  }
+
   event.respondWith(
-    caches.match(event.request).then((cached) => cached || fetch(event.request))
+    caches.match(event.request).then((cached) => {
+      const fetched = fetch(event.request)
+        .then((res) => {
+          const copy = res.clone();
+          caches.open(CACHE).then((cache) => cache.put(event.request, copy));
+          return res;
+        })
+        .catch(() => cached);
+      return cached || fetched;
+    })
   );
 });

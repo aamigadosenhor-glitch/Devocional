@@ -21,8 +21,7 @@
       </div>
       <div class="controls">
         <button id="btnShare" title="Compartilhar ou copiar">Compartilhar</button>
-        <button id="btnOffline" title="Ativar modo offline">Offline</button>
-        <button id="btnToday" title="Voltar para hoje">Hoje</button>
+        <button id="btnUpdate" title="Forçar atualização" style="display:none">Atualizar</button>
       </div>
     </div>
 
@@ -73,10 +72,21 @@
         </div>
 
         <div class="footer">
-          Este site é 100% estático, sem login e sem coleta de dados. A mensagem do dia é escolhida pelo calendário do seu aparelho e troca à meia noite do seu horário local.
-          ® todos os direitos reservados á @aamigadosenhor 2026
+          Site estático, sem login e sem coleta de dados. A mensagem do dia é escolhida pelo calendário do seu aparelho e troca à meia noite do seu horário local.
         </div>
       </div>
+
+      <div class="card" id="musicCard" style="display:none">
+        <div class="topline">
+          <div class="h2">Música do dia</div>
+          <div class="badge" id="musicBadge">Spotify</div>
+        </div>
+        <div class="small" id="musicHint" style="margin-bottom:12px"></div>
+        <div id="musicEmbed"></div>
+        <div class="footer" id="musicFooter"></div>
+      </div>
+    </div>
+  </div>
 
   <script src="app.js"></script>
 </body>
