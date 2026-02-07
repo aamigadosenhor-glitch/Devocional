@@ -1,7 +1,7 @@
 {
-  "enabled": false,
+  "enabled": true,
   "mode": "tracks",
-  "playlist": "",
+  "playlist": "3yHVpjfo2QA60VX0I7w543",
   "tracks": [],
   "note": "Use mode playlist com um link de playlist do Spotify, ou mode tracks com links de faixas. Se tracks tiver menos de 365, o site repete usando o resto."
 }
