@@ -1,7 +1,7 @@
 {
   "enabled": true,
-  "mode": "tracks",
+  "mode": "playlist",
   "playlist": "https://open.spotify.com/playlist/3yHVpjfo2QA60VX0I7w543?si=jM-iB9oqSTeZY0mKYdpxHA&pi=LknfAxNbTRyPp",
   "tracks": [],
-  "note": "Use mode playlist com um link de playlist do Spotify, ou mode tracks com links de faixas. Se tracks tiver menos de 365, o site repete usando o resto."
+  "note": "ok"
 }
