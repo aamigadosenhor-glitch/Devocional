@@ -1,6 +1,6 @@
 const $ = (sel) => document.querySelector(sel);
 
-const APP_VERSION = "v4";
+const APP_VERSION = "v6";
 
 function isLeapYear(year){
   return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
