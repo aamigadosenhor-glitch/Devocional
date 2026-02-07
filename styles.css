@@ -51,8 +51,8 @@ a{color:inherit}
   gap:12px;
 }
 .logo{
-  width:220px;
-  height:54px;
+  width:200px;
+  height:50px;
   border-radius:16px;
   background:var(--card);
   display:grid;
@@ -172,3 +172,25 @@ hr{
 .linkbtn{border:1px solid var(--border);background:var(--card);color:var(--text);padding:10px 12px;border-radius:14px;cursor:pointer;box-shadow:0 10px 22px var(--shadow);text-decoration:none;display:inline-flex;align-items:center}
 
 .linkbtn:active{transform:translateY(1px)}
+@media (max-width: 560px){
+  .header{
+    flex-direction:column;
+    align-items:stretch;
+    gap:12px;
+  }
+  .brand{
+    width:100%;
+  }
+  .controls{
+    width:100%;
+    justify-content:flex-start;
+    flex-wrap:wrap;
+  }
+  .logo{
+    width:180px;
+    height:46px;
+  }
+  .titlebox h1{
+    font-size:17px;
+  }
+}
