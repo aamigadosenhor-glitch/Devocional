@@ -1,5 +1,7 @@
 {
-  "enabled": true,
-  "tracks": https://open.spotify.com/track/7HRyi2scNjqDmGDhwqj9Bp?si=AvpXh30cSDGBC7oVof9KqA&context=spotify%3Aplaylist%3A37i9dQZF1DXaLcyqp5JErz,
-  "note": "Coloque enabled true e preencha tracks com 365 links do Spotify ou spotify:track:ID, um por dia."
+  "enabled": false,
+  "mode": "tracks",
+  "playlist": "",
+  "tracks": [],
+  "note": "Use mode playlist com um link de playlist do Spotify, ou mode tracks com links de faixas. Se tracks tiver menos de 365, o site repete usando o resto."
 }

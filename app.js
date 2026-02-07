@@ -1,6 +1,6 @@
 const $ = (sel) => document.querySelector(sel);
 
-const APP_VERSION = "v3";
+const APP_VERSION = "v4";
 
 function isLeapYear(year){
   return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
@@ -12,11 +12,10 @@ function dayOfYearLocal(d){
   return Math.floor(diff / 86400000) + 1;
 }
 
-// Map leap years to a 365 day cycle by merging Feb 29 into the same devotional as Mar 1.
 function dayIndex365(d){
   let doy = dayOfYearLocal(d);
   const leap = isLeapYear(d.getFullYear());
-  const month = d.getMonth(); // 0 Jan, 1 Feb
+  const month = d.getMonth();
   if(leap && month > 1){
     doy -= 1;
   }
@@ -77,30 +76,60 @@ function normalizeSpotifyTrack(input){
   const m1 = s.match(/^spotify:track:([A-Za-z0-9]{10,})$/);
   if(m1) return m1[1];
 
-  const m2 = s.match(/open\.spotify\.com\/track\/([A-Za-z0-9]{10,})/);
-  if(m2) return m2[1];
+  const m2 = s.match(/open\.spotify\.com\/(track|embed\/track)\/([A-Za-z0-9]{10,})/);
+  if(m2) return m2[2];
 
   return null;
 }
 
-function renderMusic(trackId, meta){
+function normalizeSpotifyPlaylist(input){
+  if(!input) return null;
+  const s = String(input).trim();
+  if(!s) return null;
+
+  const m1 = s.match(/^spotify:playlist:([A-Za-z0-9]{10,})$/);
+  if(m1) return m1[1];
+
+  const m2 = s.match(/open\.spotify\.com\/(playlist|embed\/playlist)\/([A-Za-z0-9]{10,})/);
+  if(m2) return m2[2];
+
+  return null;
+}
+
+function showMusicCard(){
   const card = $("#musicCard");
+  if(card) card.style.display = "block";
+}
+
+function hideMusicCard(){
+  const card = $("#musicCard");
+  if(card) card.style.display = "none";
+}
+
+function renderSpotifyEmbed(type, id, meta){
   const embed = $("#musicEmbed");
   const hint = $("#musicHint");
   const footer = $("#musicFooter");
-  if(!card || !embed) return;
+  if(!embed || !hint || !footer) return;
 
-  if(!trackId){
-    card.style.display = "none";
+  showMusicCard();
+  setText("#musicBadge", `Dia ${meta.doy}`);
+
+  if(type === "track"){
+    hint.textContent = "Uma música selecionada para acompanhar a leitura de hoje.";
+    const src = `https://open.spotify.com/embed/track/${id}?utm_source=generator`;
+    embed.innerHTML = `<iframe style="border-radius:16px" src="${src}" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
+    footer.textContent = "O player do Spotify pode pedir login para tocar a música inteira, isso depende das regras do Spotify e do dispositivo.";
     return;
   }
 
-  card.style.display = "block";
-  hint.textContent = "Uma música selecionada para acompanhar a leitura de hoje.";
-  const src = `https://open.spotify.com/embed/track/${trackId}?utm_source=generator`;
-  embed.innerHTML = `<iframe style="border-radius:16px" src="${src}" width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
-  footer.textContent = "O player do Spotify pode pedir login para tocar a música inteira, isso depende das regras do Spotify e do dispositivo.";
-  setText("#musicBadge", `Dia ${meta.doy}`);
+  if(type === "playlist"){
+    hint.textContent = "Uma playlist para acompanhar o devocional.";
+    const src = `https://open.spotify.com/embed/playlist/${id}?utm_source=generator`;
+    embed.innerHTML = `<iframe style="border-radius:16px" src="${src}" width="100%" height="352" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
+    footer.textContent = "Se o player não aparecer, teste sem bloqueador de anúncios ou em janela anônima.";
+    return;
+  }
 }
 
 function bindShare(getState){
@@ -125,7 +154,6 @@ function bindUpdateButton(reg){
   if(!btn) return;
 
   const show = () => { btn.style.display = "inline-flex"; };
-  const hide = () => { btn.style.display = "none"; };
 
   const doUpdate = async () => {
     try{
@@ -161,6 +189,44 @@ function bindUpdateButton(reg){
   }
 }
 
+function tryRenderMusic(musicCfg, meta){
+  if(!musicCfg || !musicCfg.enabled){
+    hideMusicCard();
+    return;
+  }
+
+  const mode = String(musicCfg.mode || "").toLowerCase().trim();
+
+  const playlistId = normalizeSpotifyPlaylist(musicCfg.playlist);
+  if(mode === "playlist" && playlistId){
+    renderSpotifyEmbed("playlist", playlistId, meta);
+    return;
+  }
+
+  const tracks = Array.isArray(musicCfg.tracks) ? musicCfg.tracks : [];
+  if(tracks.length > 0){
+    const idx = (meta.doy - 1) % tracks.length;
+    const trackId = normalizeSpotifyTrack(tracks[idx]);
+    if(trackId){
+      renderSpotifyEmbed("track", trackId, meta);
+      return;
+    }
+
+    const maybePlaylist = normalizeSpotifyPlaylist(tracks[idx]);
+    if(maybePlaylist){
+      renderSpotifyEmbed("playlist", maybePlaylist, meta);
+      return;
+    }
+  }
+
+  if(playlistId){
+    renderSpotifyEmbed("playlist", playlistId, meta);
+    return;
+  }
+
+  hideMusicCard();
+}
+
 async function main(){
   const now = new Date();
   const meta = dayIndex365(now);
@@ -182,14 +248,9 @@ async function main(){
 
   try{
     const musicCfg = await loadJSON("data/musicas.json");
-    if(musicCfg && musicCfg.enabled && Array.isArray(musicCfg.tracks) && musicCfg.tracks.length >= 365){
-      const trackId = normalizeSpotifyTrack(musicCfg.tracks[meta.doy - 1]);
-      renderMusic(trackId, meta);
-    } else {
-      renderMusic(null, meta);
-    }
+    tryRenderMusic(musicCfg, meta);
   }catch(e){
-    renderMusic(null, meta);
+    hideMusicCard();
   }
 
   bindShare(() => ({
